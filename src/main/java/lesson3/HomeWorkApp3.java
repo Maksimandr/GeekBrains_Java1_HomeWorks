@@ -184,6 +184,8 @@ public class HomeWorkApp3 {
                 }
                 System.out.println(arr[arr.length - 1] + "]");
                 return true;
+            } else if (partialSum > sum / 2) { // Баланс уже невозможен
+                break;
             }
         }
         return false;
