@@ -53,7 +53,8 @@ public class HomeWorkApp2 {
      * @return результат проверки на попадание суммы в диапазон
      */
     public static boolean checkSum(int a, int b) {
-        return a + b >= 10 && a + b <= 20;
+        int sum = a + b;
+        return sum >= 10 && sum <= 20;
     }
 
     /**
