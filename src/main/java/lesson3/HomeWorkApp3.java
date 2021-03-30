@@ -21,11 +21,11 @@ public class HomeWorkApp3 {
         System.out.println("----------------------------------------------------");// для удобства восприятия результатов вывода
 
         System.out.println("Задание №3. Задать массив [ 1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1 ] пройти по нему циклом, и числа меньшие 6 умножить на 2.");
-        doubleArrElements();
+        doubleElementsInArray();
         System.out.println("----------------------------------------------------");// для удобства восприятия результатов вывода
 
         System.out.println("Задание №4. Создать квадратный двумерный целочисленный массив (количество строк и столбцов одинаковое), и с помощью цикла(-ов) \nзаполнить его диагональные элементы единицами (можно только одну из диагоналей, если обе сложно). Определить элементы одной из \nдиагоналей можно по следующему принципу: индексы таких элементов равны, то есть [0][0], [1][1], [2][2], …, [n][n].");
-        diagonalArr();
+        diagonalArray();
         System.out.println("----------------------------------------------------");// для удобства восприятия результатов вывода
 
         System.out.println("Задание №5. Написать метод, принимающий на вход два аргумента: len и initialValue, и возвращающий одномерный массив типа int \nдлиной len, каждая ячейка которого равна initialValue.");
@@ -33,12 +33,12 @@ public class HomeWorkApp3 {
         int len = scanner.nextInt();
         System.out.println("Введите начальное значение для ячеек массива:");
         int initialValue = scanner.nextInt();
-        System.out.println(Arrays.toString(fillArr(len, initialValue)));
+        System.out.println(Arrays.toString(fillArray(len, initialValue)));
 
         System.out.println("----------------------------------------------------");// для удобства восприятия результатов вывода
 
         System.out.println("Задание №6. Задать одномерный массив и найти в нем минимальный и максимальный элементы.");
-        findMinMaxInArr();
+        findMinMaxInArray();
         System.out.println("----------------------------------------------------");// для удобства восприятия результатов вывода
 
         System.out.println("Задание №7. Написать метод, в который передается не пустой одномерный целочисленный массив, метод должен вернуть true, \nесли в массиве есть место, в котором сумма левой и правой части массива равны.");
@@ -65,7 +65,7 @@ public class HomeWorkApp3 {
         System.out.println("Введите размер массива:");
         int arrSize = scanner.nextInt();
         int[] arr;
-        arr = rndFillArray(arrSize, 1); // заполняем массив 0 и 1
+        arr = randomFillArray(arrSize, 1); // заполняем массив 0 и 1
         System.out.println(Arrays.toString(arr));
         System.out.println("Заменим 0 на 1 и наоборот.");
         for (int i = 0; i < arr.length; i++) {
@@ -92,7 +92,7 @@ public class HomeWorkApp3 {
     /**
      * Задается массив [ 1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1 ]. Проходим по нему циклом, и числа меньшие 6 умножаем на 2.
      */
-    public static void doubleArrElements() {
+    public static void doubleElementsInArray() {
         int[] arr = {1, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
         System.out.println(Arrays.toString(arr));
         for (int i = 0; i < arr.length; i++) {
@@ -108,7 +108,7 @@ public class HomeWorkApp3 {
      * Создается квадратный двумерный целочисленный массив (количество строк и столбцов одинаковое),
      * и с помощью цикла заполняются его диагональные элементы единицами.
      */
-    public static void diagonalArr() {
+    public static void diagonalArray() {
         System.out.println("Введите размер массива:");
         int arrSize = scanner.nextInt();
         int[][] arr = new int[arrSize][arrSize];
@@ -127,7 +127,7 @@ public class HomeWorkApp3 {
      * @param initialValue значение ячеек массива
      * @return возвращает инициализированный массив
      */
-    public static int[] fillArr(int len, int initialValue) {
+    public static int[] fillArray(int len, int initialValue) {
         int[] arr = new int[len];
         for (int i = 0; i < arr.length; i++) {
             arr[i] = initialValue;
@@ -138,13 +138,13 @@ public class HomeWorkApp3 {
     /**
      * Задается одномерный массив и находятся в нем минимальный и максимальный элементы
      */
-    public static void findMinMaxInArr() {
+    public static void findMinMaxInArray() {
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
         System.out.println("Введите размер массива:");
         int arrSize = scanner.nextInt();
         int[] arr;
-        arr = rndFillArray(arrSize, 100); // заполняем массив значениями от 0 до 100
+        arr = randomFillArray(arrSize, 100); // заполняем массив значениями от 0 до 100
         System.out.println(Arrays.toString(arr));
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] > max) {
@@ -184,6 +184,8 @@ public class HomeWorkApp3 {
                 }
                 System.out.println(arr[arr.length - 1] + "]");
                 return true;
+            } else if (partialSum > sum / 2) { // Баланс уже невозможен
+                break;
             }
         }
         return false;
@@ -241,7 +243,7 @@ public class HomeWorkApp3 {
         if (arrFillMethod == 1) {
             System.out.println("Введите верхнюю границу диапазона значений элементов массива:");
             int maxValue = scanner.nextInt();
-            arr = rndFillArray(arrSize, maxValue);// Заполняем массив случайными значениями
+            arr = randomFillArray(arrSize, maxValue);// Заполняем массив случайными значениями
         } else {
             for (int i = 0; i < arrSize; i++) {
                 System.out.printf("Введите %d элемент массива = ", i + 1);
@@ -258,7 +260,7 @@ public class HomeWorkApp3 {
      * @param maxValue максимальное граница диапазона значений элементов массива
      * @return заполненный массив
      */
-    public static int[] rndFillArray(int arrSize, int maxValue) {
+    public static int[] randomFillArray(int arrSize, int maxValue) {
         Random rnd = new Random();
         int[] arr = new int[arrSize];
         for (int i = 0; i < arr.length; i++) {
