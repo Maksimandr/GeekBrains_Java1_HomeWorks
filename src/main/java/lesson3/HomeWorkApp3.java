@@ -205,7 +205,7 @@ public class HomeWorkApp3 {
             return arr;
         }
         if (n >= 0) { // выбран сдвиг впарво
-            for (int i = 0; i < n; i++) {// сдвиг повторяется n раз
+            for (int i = 0; i < n % arr.length; i++) {// сдвиг повторяется n раз
                 tempElement = arr[arr.length - 1];//запоминаем последний элемент массива
                 for (int j = arr.length - 2; j >= 0; j--) {//сдвигаем все элемнты от предпоследнего до первого вправо
                     arr[j + 1] = arr[j];
@@ -213,7 +213,7 @@ public class HomeWorkApp3 {
                 arr[0] = tempElement;// последний элемент помещаем на место первого
             }
         } else { // выбран сдвиг влево
-            for (int i = 0; i < -n; i++) {// сдвиг повторяется n раз
+            for (int i = 0; i < -n % arr.length; i++) {// сдвиг повторяется n раз
                 tempElement = arr[0];//запоминаем первый элемент массива
                 for (int j = 1; j < arr.length; j++) {//сдвигаем все элемнты от второго до последнего влево
                     arr[j - 1] = arr[j];
