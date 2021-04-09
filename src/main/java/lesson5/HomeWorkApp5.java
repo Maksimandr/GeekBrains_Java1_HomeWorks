@@ -13,7 +13,7 @@ public class HomeWorkApp5 {
         employeesArray[4] = new Employee("Doe John", "Director", "j_doe@company.com", "89876543211", 70000, 42);
 
         // 1. С помощью цикла выводим информацию только о сотрудниках старше 40 лет.
-        for (Employee employee: employeesArray) {
+        for (Employee employee : employeesArray) {
             if (employee.getAge() > 40) {
                 employee.info();
             }
@@ -21,7 +21,7 @@ public class HomeWorkApp5 {
 
         System.out.println();
 
-
-
+        // 2. Реализация с помощью статического метода.
+        Employee.infoDependingOnAge(employeesArray, 40);
     }
 }

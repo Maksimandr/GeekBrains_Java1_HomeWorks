@@ -13,12 +13,13 @@ public class Employee {
 
     /**
      * Конструктор
-     * @param name ФИО
-     * @param position должность
-     * @param email электронная почта
+     *
+     * @param name        ФИО
+     * @param position    должность
+     * @param email       электронная почта
      * @param phoneNumber телефон
-     * @param salary зарплата
-     * @param age возраст
+     * @param salary      зарплата
+     * @param age         возраст
      */
     public Employee(String name, String position, String email, String phoneNumber, int salary, int age) {
         this.name = name;
@@ -82,6 +83,7 @@ public class Employee {
 
     /**
      * Для тренировки переопределил метод
+     *
      * @return информация об объекте в виде строки
      */
     @Override
@@ -103,6 +105,17 @@ public class Employee {
         System.out.println(this);
     }
 
-
-
+    /**
+     * Выводим информацию только о сотрудниках старше заданного возраста
+     *
+     * @param employees массив сотрудников
+     * @param age       возраст
+     */
+    public static void infoDependingOnAge(Employee[] employees, int age) {
+        for (Employee employee : employees) {
+            if (employee.getAge() > age) {
+                System.out.println(employee);
+            }
+        }
+    }
 }
