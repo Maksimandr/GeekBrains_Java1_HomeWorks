@@ -17,8 +17,6 @@ public class HomeWorkApp6 {
         int numberOfCats;
         int numberOfDogs;
         int numberOfAnimals;
-        int distanceOfRun;
-        int distanceOfSwim;
 
         do {
             System.out.println("Введите количество котов, собак и просто животных (не более " + limitNumber + " каждого) в формате X Y Z");
@@ -27,7 +25,7 @@ public class HomeWorkApp6 {
             numberOfAnimals = scanner.nextInt();
         } while (!isInputValid(numberOfCats, numberOfDogs, numberOfAnimals, limitNumber));
 
-        //Создаем массивы из котов, собак и просто животных
+        //Создаем массивы из котов, собак и всех животных
         cats = new Cat[numberOfCats];
         dogs = new Dog[numberOfDogs];
         animals = new Animal[numberOfAnimals + numberOfCats + numberOfDogs];
@@ -37,19 +35,17 @@ public class HomeWorkApp6 {
         }
         for (int i = 0; i < numberOfCats; i++) {
             cats[i] = new Cat("Кот №" + i, "Цвет кота №" + i);
-            animals[numberOfAnimals + i] = cats[i];
+            animals[numberOfAnimals + i] = cats[i]; // коты тоже животные :)
         }
         for (int i = 0; i < numberOfDogs; i++) {
             dogs[i] = new Dog("Пёс №" + i, "Порода собаки №" + i);
-            animals[numberOfAnimals + numberOfCats + i] = dogs[i];
+            animals[numberOfAnimals + numberOfCats + i] = dogs[i]; // собаки тоже животные :)
         }
 
-        //Каждому из объектов котов/собак/животных задаем дистанцию бега и плавания
+        //Каждому из объектов животных задаем дистанцию бега и плавания
         for (int i = 0; i < Animal.getCreatedAnimals(); i++) {
-            distanceOfRun = random.nextInt(750);
-            distanceOfSwim = random.nextInt(15);
-            animals[i].run(distanceOfRun);
-            animals[i].swim(distanceOfSwim);
+            animals[i].run(random.nextInt(750));
+            animals[i].swim(random.nextInt(15));
             System.out.println();
         }
         //Выводим количество созданных котов, собак и животных
