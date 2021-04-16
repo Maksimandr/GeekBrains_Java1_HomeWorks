@@ -6,9 +6,10 @@ public class Cat {
     private String color;
     private int age;
     private int appetite;
+    private boolean satiety;
 
     public Cat() {
-        this("Степан", "Бандитского", 3, 5);
+        this("Степан", "Бандитского", 3, 25);
         System.out.println("Создаём кота Шрёдингера");
     }
 
@@ -18,10 +19,6 @@ public class Cat {
         this.color = color;
         this.age = age;
         this.appetite = appetite;
-    }
-
-    public void eat() {
-
     }
 
     public String getName() {
@@ -57,6 +54,14 @@ public class Cat {
         this.appetite = appetite;
     }
 
+    public boolean isSatiety() {
+        return satiety;
+    }
+
+    public void setSatiety(boolean satiety) {
+        this.satiety = satiety;
+    }
+
     private void validateAge(int age) {
         if (age < 0) {
             throw new IllegalArgumentException("Возраст не может быть отрицательным");
@@ -64,5 +69,24 @@ public class Cat {
         if (age > 25) {
             throw new IllegalArgumentException("Коты столько не живут");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Cat{" +
+                "name='" + name + '\'' +
+                ", color='" + color + '\'' +
+                ", age=" + age +
+                ", appetite=" + appetite +
+                ", satiety=" + satiety +
+                '}';
+    }
+
+    public void info() {
+        System.out.println(this);
+    }
+
+    public void eat(Plate plate) {
+        satiety = plate.decreaseFood(appetite);
     }
 }
