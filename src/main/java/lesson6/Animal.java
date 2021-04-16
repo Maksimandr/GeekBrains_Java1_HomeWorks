@@ -23,10 +23,18 @@ public class Animal {
     }
 
     public void run(int distance) {
+        validateNegative(distance);
         System.out.println(name + " пробежал " + distance + " м.");
     }
 
     public void swim(int distance) {
+        validateNegative(distance);
         System.out.println(name + " проплыл " + distance + " м.");
+    }
+
+    protected void validateNegative(int value) {
+        if (value < 0) {
+            throw new IllegalArgumentException("Расстояние не может быть отрицательным!");
+        }
     }
 }
