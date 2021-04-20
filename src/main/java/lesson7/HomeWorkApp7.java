@@ -16,6 +16,7 @@ public class HomeWorkApp7 {
         for (int i = 0; i < cat.length; i++) {
             cat[i] = new Cat("Степан №" + i, "Бандитского", random.nextInt(25), random.nextInt(50));
         }
+
         //кормим котов по очереди
         for (int i = 0; i < cat.length; i++) {
             System.out.println("В тарелке сейчас еды: " + plate);

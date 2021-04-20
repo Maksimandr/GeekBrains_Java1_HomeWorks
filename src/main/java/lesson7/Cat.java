@@ -1,6 +1,7 @@
 package lesson7;
 
 public class Cat {
+    //кот
 
     private String name;
     private String color;
