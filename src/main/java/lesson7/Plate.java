@@ -1,6 +1,7 @@
 package lesson7;
 
 public class Plate {
+    //тарелка
 
     private int foodCount;
 
