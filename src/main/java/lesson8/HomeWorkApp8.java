@@ -1,231 +1,155 @@
 package lesson8;
 
-import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class HomeWorkApp8 {
+public class HomeWorkApp8 extends JFrame {
 
-    //Предположение - Человек ходит - Х, программа - О.
+    private int valueX;
+    private int valueY;
 
-    //Поле
-    public static char[][] map;
-    public static final int SIZE = 5;
-    public static final int DOTS_TO_WIN = 4;
+    public HomeWorkApp8(int initialValueX, int initialValueY) {
 
-    //Константы- символы
-    public static final char DOT_EMPTY = '*';
-    public static final char DOT_X = 'X';
-    public static final char DOT_O = 'O';
+        setBounds(200, 200, 800, 200);
+        setTitle("Simple Counter");
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-    public static final Scanner scanner = new Scanner(System.in);
-    public static final Random random = new Random();
+        Font font = new Font("Arial", Font.BOLD, 32);
 
+        setLayout(new GridLayout(2, 5));
 
-    /**
-     * Создать игровое поле и заполнить его пустыми точками.
-     */
-    public static void initMap() {
-        map = new char[SIZE][SIZE];
-        for (int i = 0; i < map.length; i++) {
-            Arrays.fill(map[i], DOT_EMPTY);
-        }
-    }
+        JButton decrementTenButtonX = new JButton("-10");
+        decrementTenButtonX.setFont(font);
+        add(decrementTenButtonX);
 
-    public static void printMap() {
-        //нумерация столбцов
-        for (int i = 0; i <= map.length; i++) {
-            System.out.print(i + " ");
-        }
-        System.out.println();
+        JButton decrementButtonX = new JButton("<");
+        decrementButtonX.setFont(font);
+        add(decrementButtonX);
 
-        for (int i = 0; i < map.length; i++) {
-            //нумерация строк
-            System.out.print((i + 1) + " ");
-            for (int j = 0; j < map[i].length; j++) {
-                System.out.print(map[i][j] + " ");
-            }
-            System.out.println();
-        }
-    }
+        JLabel counterValueViewX = new JLabel();
+        counterValueViewX.setFont(font);
+        counterValueViewX.setHorizontalAlignment(SwingConstants.CENTER);
+        add(counterValueViewX);
+        valueX = initialValueX;
+        counterValueViewX.setText(String.valueOf(valueX));
 
-    /**
-     * Считать координаты хода. Установить Х на поле
-     */
-    public static void humanTurn() {
-        int x, y;
-        do {
-            System.out.println("Введите координаты хода в формате: X Y");
-            x = scanner.nextInt() - 1;
-            y = scanner.nextInt() - 1;
-        } while (!isCellValid(x, y));
-        map[x][y] = DOT_X;
-    }
+        JButton incrementButtonX = new JButton(">");
+        incrementButtonX.setFont(font);
+        add(incrementButtonX);
 
-    /**
-     * Ход компьютера
-     */
-    public static void aiTurn() {
-        int x, y;
-        do {
-            x = random.nextInt(SIZE);
-            y = random.nextInt(SIZE);
-        } while (!isCellValid(x, y));
-        System.out.printf("Искусственный интеллект ходит: %d %d", x + 1, y + 1);
-        System.out.println();
-        map[x][y] = DOT_O;
-    }
+        JButton incrementTenButtonX = new JButton("+10");
+        incrementTenButtonX.setFont(font);
+        add(incrementTenButtonX);
 
-    public static boolean isCellValid(int x, int y) {
-        if (x < 0 || x >= SIZE || y < 0 || y >= SIZE) {
-            return false;
-        }
-        if (map[x][y] == DOT_EMPTY) {
-            return true;
-        }
-        return false;
-    }
+        JButton decrementTenButtonY = new JButton("-10");
+        decrementTenButtonY.setFont(font);
+        add(decrementTenButtonY);
 
+        JButton decrementButtonY = new JButton("<");
+        decrementButtonY.setFont(font);
+        add(decrementButtonY);
 
-    /**
-     * Проверка выигрыша
-     *
-     * @param dot
-     * @return
-     */
-    public static boolean checkWin(char dot) {
-        int dotsInLine = 0;
-        int dotsInColumn = 0;
-        int dotsInDiagonal = 0;
-        int dotsInReversDiagonal = 0;
-        int numberOfAdditionalDiagonals = SIZE - DOTS_TO_WIN; // количество дополнительных диагоналей слева и справа от главных, в которых возможен выигрыш
-        int[][] dotsInAddDiag = new int[2][numberOfAdditionalDiagonals];
-        int[][] dotsInReversAddDiag = new int[2][numberOfAdditionalDiagonals];
+        JLabel counterValueViewY = new JLabel();
+        counterValueViewY.setFont(font);
+        counterValueViewY.setHorizontalAlignment(SwingConstants.CENTER);
+        add(counterValueViewY);
+        valueY = initialValueY;
+        counterValueViewY.setText(String.valueOf(valueY));
 
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                // считаем фишки в строках
-                if (map[i][j] == dot) {
-                    dotsInLine++;
-                } else { // проверка что фишки идут подряд
-                    dotsInLine = 0;
+        JButton incrementButtonY = new JButton(">");
+        incrementButtonY.setFont(font);
+        add(incrementButtonY);
+
+        JButton incrementTenButtonY = new JButton("+10");
+        incrementTenButtonY.setFont(font);
+        add(incrementTenButtonY);
+
+        decrementButtonX.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (valueX > 0) {
+                    valueX--;
                 }
-                // считаем фишки в столбцах
-                if (map[j][i] == dot) {
-                    dotsInColumn++;
-                } else { // проверка что фишки идут подряд
-                    dotsInColumn = 0;
-                }
-                // проверяем на выигрыш в строках и столбцах
-                if (dotsInLine == DOTS_TO_WIN || dotsInColumn == DOTS_TO_WIN) {
-                    return true;
-                }
+                counterValueViewX.setText(String.valueOf(valueX));
             }
-            dotsInLine = 0;
-            dotsInColumn = 0;
-        }
-        for (int i = 0; i < SIZE; i++) {
-            // считаем фишки по основной диагонали
-            if (map[i][i] == dot) {
-                dotsInDiagonal++;
-            } else { // проверка что фишки идут подряд
-                dotsInDiagonal = 0;
-            }
-            // считаем фишки по обратной диагонали
-            if (map[i][SIZE - (i + 1)] == dot) {
-                dotsInReversDiagonal++;
-            } else { // проверка что фишки идут подряд
-                dotsInReversDiagonal = 0;
-            }
-            if (dotsInDiagonal == DOTS_TO_WIN || dotsInReversDiagonal == DOTS_TO_WIN) {
-                return true;
-            }
-        }
+        });
 
-        // считаем фишки в дополнительных диагоналях
-        for (int k = 0; k < numberOfAdditionalDiagonals; k++) {
-            //дополнительные диагонали выше основной
-            for (int i = 0; i < SIZE - numberOfAdditionalDiagonals - k; i++) {
-                if (map[i][i + (k + 1)] == dot) {
-                    dotsInAddDiag[0][k]++;
-                } else {
-                    dotsInAddDiag[0][k] = 0;
+        decrementTenButtonX.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (valueX > 9) {
+                    valueX -= 10;
                 }
-                //дополнительные диагонали выше обратной
-                if (map[i][SIZE - (k + 1) - (i + 1) - k] == dot) {
-                    dotsInReversAddDiag[0][k]++;
-                } else {
-                    dotsInReversAddDiag[0][k] = 0;
-                }
-                if (dotsInAddDiag[0][k] == DOTS_TO_WIN || dotsInReversAddDiag[0][k] == DOTS_TO_WIN) {
-                    return true;
-                }
+                counterValueViewX.setText(String.valueOf(valueX));
             }
-            for (int i = k + 1; i < SIZE; i++) {
-                //дополнительные диагонали ниже основной
-                if (map[i][i - (k + 1)] == dot) {
-                    dotsInAddDiag[1][k]++;
-                } else {
-                    dotsInAddDiag[1][k] = 0;
-                }
-                //дополнительные диагонали ниже обратной
-                if (map[i][SIZE - (i + 1) + (k + 1)] == dot) {
-                    dotsInReversAddDiag[1][k]++;
-                } else {
-                    dotsInReversAddDiag[1][k] = 0;
-                }
-            }
-            if (dotsInAddDiag[1][k] == DOTS_TO_WIN || dotsInReversAddDiag[1][k] == DOTS_TO_WIN) {
-                return true;
-            }
-        }
-        return false;
-    }
+        });
 
-    /**
-     * Проверяет, что поле заполнено.
-     *
-     * @return
-     */
-    public static boolean isFull() {
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                if (map[i][j] == DOT_EMPTY) {
-                    return false;
+        incrementButtonX.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (valueX < 100) {
+                    valueX++;
                 }
+                counterValueViewX.setText(String.valueOf(valueX));
             }
-        }
-        return true;
-    }
+        });
 
-    public static void play() {
-        while (true) {
-            humanTurn();
-            printMap();
-            if (checkWin(DOT_X)) {
-                System.out.println("Выиграл человек.");
-                break;
+        incrementTenButtonX.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (valueX < 91) {
+                    valueX += 10;
+                }
+                counterValueViewX.setText(String.valueOf(valueX));
             }
-            if (isFull()) {
-                System.out.println("Ничья");
-                break;
+        });
+
+        decrementButtonY.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (valueY > 0) {
+                    valueY--;
+                }
+                counterValueViewY.setText(String.valueOf(valueY));
             }
-            aiTurn();
-            printMap();
-            if (checkWin(DOT_O)) {
-                System.out.println("Кожанный мешок, я победил!");
-                break;
+        });
+
+        decrementTenButtonY.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (valueY > 9) {
+                    valueY -= 10;
+                }
+                counterValueViewY.setText(String.valueOf(valueY));
             }
-            if (isFull()) {
-                System.out.println("Ничья");
-                break;
+        });
+
+        incrementButtonY.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (valueY < 100) {
+                    valueY++;
+                }
+                counterValueViewY.setText(String.valueOf(valueY));
             }
-        }
+        });
+
+        incrementTenButtonY.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (valueY < 91) {
+                    valueY += 10;
+                }
+                counterValueViewY.setText(String.valueOf(valueY));
+            }
+        });
+
+        setVisible(true);
     }
 
     public static void main(String[] args) {
-        initMap();
-        printMap();
-        play();
+        HomeWorkApp8 obj = new HomeWorkApp8(3, 3);
     }
 }
